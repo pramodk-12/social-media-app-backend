@@ -11,8 +11,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Document(collection  = "users")
-public class UserEntity {
+@Document(collection  = "auth-users")
+public class AuthUserEntity {
         @Id
         private String id;
         private String username;

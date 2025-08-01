@@ -1,0 +1,10 @@
+com\pramod\user\dto\UserDto.class
+com\pramod\user\services\Impl\UserServiceImpl.class
+com\pramod\user\kafka\KafkaConsumer.class
+com\pramod\user\entities\UserEntity$UserEntityBuilder.class
+com\pramod\user\entities\UserEntity.class
+com\pramod\user\UserApplication.class
+com\pramod\user\controllers\UserController.class
+com\pramod\user\config\MongoDebugger.class
+com\pramod\user\services\UserService.class
+com\pramod\user\repositories\UserRepository.class

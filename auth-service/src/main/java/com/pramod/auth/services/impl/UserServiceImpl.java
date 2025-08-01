@@ -1,7 +1,7 @@
 package com.pramod.auth.services.impl;
 
 import com.pramod.auth.dto.UserDto;
-import com.pramod.auth.entities.UserEntity;
+import com.pramod.auth.entities.AuthUserEntity;
 import com.pramod.auth.repositories.UserRepository;
 import com.pramod.auth.services.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,8 +21,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserEntity createUser(UserDto userDto) {
-        UserEntity user = new UserEntity();
+    public AuthUserEntity createUser(UserDto userDto) {
+        AuthUserEntity user = new AuthUserEntity();
         user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
         user.setPasswordHash(passwordEncoder.encode(user.getPasswordHash()));
@@ -32,12 +32,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserEntity> getAllUsers() {
+    public List<AuthUserEntity> getAllUsers() {
         return userRepository.findAll();
     }
 
     @Override
-    public UserEntity getUserById(String id) {
+    public AuthUserEntity getUserById(String id) {
         return userRepository.findById(id).orElse(null);
     }
 }

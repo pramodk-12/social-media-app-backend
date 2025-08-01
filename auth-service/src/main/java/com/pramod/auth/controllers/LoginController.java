@@ -2,9 +2,11 @@ package com.pramod.auth.controllers;
 
 import com.pramod.auth.dto.LoginRequestDto;
 import com.pramod.auth.dto.RegisterRequestDto;
-import com.pramod.auth.entities.UserEntity;
+import com.pramod.auth.entities.AuthUserEntity;
+import com.pramod.auth.kafka.KafkaProducer;
 import com.pramod.auth.repositories.UserRepository;
 import com.pramod.auth.security.JwtTokenUtil;
+import com.pramod.events.UserCreatedEvent;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,10 +30,13 @@ public class LoginController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
+    @Autowired
+    private KafkaProducer kafkaProducer;
+
     // POST: /auth/login
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> login(@Valid @RequestBody LoginRequestDto loginRequest) {
-        Optional<UserEntity> userOpt = userRepository.findByUsername(loginRequest.getUsername());
+        Optional<AuthUserEntity> userOpt = userRepository.findByUsername(loginRequest.getUsername());
 
         if (userOpt.isEmpty() || !passwordEncoder.matches(loginRequest.getPassword(), userOpt.get().getPasswordHash())) {
             return ResponseEntity.status(401).body(Map.of("error", "Invalid credentials!"));
@@ -52,7 +57,7 @@ public class LoginController {
 
         }
 
-        UserEntity user = UserEntity.builder()
+        AuthUserEntity user = AuthUserEntity.builder()
                 .username(request.getUsername())
                 .email(request.getEmail())
                 .passwordHash(passwordEncoder.encode(request.getPassword()))
@@ -61,6 +66,8 @@ public class LoginController {
                 .build();
 
         userRepository.save(user);
+        UserCreatedEvent event = new UserCreatedEvent(user.getId(), user.getUsername(), user.getEmail(), user.getAccountCreatedAt());
+        kafkaProducer.sendUserCreatedEvent(event);
         return ResponseEntity.ok(Map.of("message", "User registered successfully!"));
     }
 

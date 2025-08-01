@@ -1,6 +1,6 @@
 package com.pramod.auth.security;
 
-import com.pramod.auth.entities.UserEntity;
+import com.pramod.auth.entities.AuthUserEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -33,11 +33,11 @@ public class JwtTokenUtil {
         return claimsResolver.apply(claims);
     }
 
-    public String generateToken(UserEntity userDetails) {
+    public String generateToken(AuthUserEntity userDetails) {
         return generateToken(new HashMap<>(), userDetails);
     }
 
-    public String generateToken(Map<String, Object> extraClaims, UserEntity userDetails) {
+    public String generateToken(Map<String, Object> extraClaims, AuthUserEntity userDetails) {
         return buildToken(extraClaims, userDetails, jwtExpiration);
     }
 
@@ -47,7 +47,7 @@ public class JwtTokenUtil {
 
     private String buildToken(
             Map<String, Object> extraClaims,
-            UserEntity userDetails,
+            AuthUserEntity userDetails,
             long expiration
     ) {
         return Jwts
@@ -60,7 +60,7 @@ public class JwtTokenUtil {
                 .compact();
     }
 
-    public boolean isTokenValid(String token, UserEntity userDetails) {
+    public boolean isTokenValid(String token, AuthUserEntity userDetails) {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
     }

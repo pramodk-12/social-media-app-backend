@@ -1,6 +1,6 @@
 package com.pramod.auth.controllers;
 
-import com.pramod.auth.entities.UserEntity;
+import com.pramod.auth.entities.AuthUserEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     @GetMapping("/profile")
-    public ResponseEntity<UserEntity> getProfile(@AuthenticationPrincipal UserEntity user) {
+    public ResponseEntity<AuthUserEntity> getProfile(@AuthenticationPrincipal AuthUserEntity user) {
         return ResponseEntity.ok(user);
     }
 }
