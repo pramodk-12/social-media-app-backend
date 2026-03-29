@@ -1,6 +1,6 @@
 package com.pramod.auth.kafka;
 
-import com.pramod.events.UserCreatedEvent;
+import com.pramod.common.events.UserCreatedEvent;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,6 @@
 package com.pramod.user.kafka;
 
-import com.pramod.events.UserCreatedEvent;
+import com.pramod.common.events.UserCreatedEvent;
 import com.pramod.user.dto.UserDto;
 import com.pramod.user.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

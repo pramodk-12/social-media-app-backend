@@ -1,1 +1,34 @@
-/uploads/*
+# Maven Build Artifacts
+**/target/
+**/target/*
+*.jar
+*.war
+*.ear
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+gen/
+
+# Logs
+*.log
+
+# Project Specific (Post Service Image Uploads)
+# Your documentation says post-service uses uploads/images
+post-service/uploads/
+uploads/
+
+# OS Specific
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Compiled class files
+*.class
+
+# Environment/Secrets (Avoid committing JWT secrets)
+.env
+*.properties.local

@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/users")
@@ -46,6 +47,17 @@ public class UserController {
     public ResponseEntity<Void> delete(@PathVariable String id) {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<?> getCurrentUser(
+            @RequestHeader("X-User-Name") String username,
+            @RequestHeader("X-User-Id") String userId
+    ) {
+        return ResponseEntity.ok(Map.of(
+                "userId", userId,
+                "username", username
+        ));
     }
 }
 

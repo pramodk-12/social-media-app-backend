@@ -19,6 +19,7 @@
         <module name="user-service" />
         <module name="common" />
         <module name="user" />
+        <module name="gateway" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
