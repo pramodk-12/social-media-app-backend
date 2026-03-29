@@ -1,3 +1,0 @@
-com\pramod\gateway\config\SecurityConfig.class
-com\pramod\gateway\ApiGatewayApplication.class
-com\pramod\gateway\filter\JwtAuthFilter.class
