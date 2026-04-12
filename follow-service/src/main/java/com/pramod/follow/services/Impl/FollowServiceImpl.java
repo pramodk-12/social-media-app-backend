@@ -1,9 +1,12 @@
 package com.pramod.follow.services.Impl;
 
+import com.pramod.common.events.FollowCreatedEvent;
+import com.pramod.common.events.FollowDeletedEvent;
 import com.pramod.follow.entities.FollowEntity;
 import com.pramod.follow.repositories.FollowRepository;
 import com.pramod.follow.services.FollowService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -13,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FollowServiceImpl implements FollowService {
     private final FollowRepository followRepository;
+    private final KafkaTemplate<String, Object> kafkaTemplate;
 
     public void follow(String followerId, String followingId) {
 
@@ -34,10 +38,14 @@ public class FollowServiceImpl implements FollowService {
         follow.setCreatedAt(Instant.now().toString());
 
         followRepository.save(follow);
+        kafkaTemplate.send("follow.created",
+                new FollowCreatedEvent(followerId, followingId));
     }
 
     public void unfollow(String followerId, String followingId) {
         followRepository.deleteByFollowerIdAndFollowingId(followerId, followingId);
+        kafkaTemplate.send("follow.deleted",
+                new FollowDeletedEvent(followerId, followingId));
     }
 
     public List<String> getFollowers(String userId) {

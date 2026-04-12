@@ -17,6 +17,7 @@
         <module>post-service</module>
         <module>api-gateway</module>
         <module>follow-service</module>
+        <module>feed-service</module>
         <!--        <module>post-service</module>-->
     </modules>
 
