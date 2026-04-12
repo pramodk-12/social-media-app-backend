@@ -8,9 +8,9 @@
         <artifactId>social-media-app</artifactId>
         <version>1.0.0</version>
     </parent>
-	<artifactId>auth-service</artifactId>
+	<artifactId>follow-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>auth</name>
+	<name>follow</name>
 	<description>Social Media Project</description>
 	<url/>
 	<dependencies>

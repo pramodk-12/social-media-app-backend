@@ -13,8 +13,7 @@ public class SecurityConfig {
         http
                 .csrf(ServerHttpSecurity.CsrfSpec::disable) // 👈 Disable CSRF (recommended syntax)
                 .authorizeExchange(auth -> auth
-                        .pathMatchers("/api/auth/**").permitAll()
-                        .anyExchange().authenticated()
+                        .anyExchange().permitAll() // 👈 Temporarily allow all at the Security level
                 );
 
         return http.build();

@@ -26,6 +26,7 @@ public class JwtAuthFilter implements GlobalFilter {
 
         String authHeader = exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
 
+
         if(authHeader == null || !authHeader.startsWith("Bearer ")) {
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
@@ -40,10 +41,13 @@ public class JwtAuthFilter implements GlobalFilter {
            return exchange.getResponse().setComplete();
         }
 
-        exchange = exchange.mutate()
-                .request(r -> r.header("X-User-Name", username).header("X-User-Id", userId))
+        ServerWebExchange mutatedExchange = exchange.mutate()
+                .request(exchange.getRequest().mutate()
+                        .header("X-User-Name", username)
+                        .header("X-User-Id", userId)
+                        .build())
                 .build();
-        return chain.filter(exchange);
+        return chain.filter(mutatedExchange);
     }
 
 }

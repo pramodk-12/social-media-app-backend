@@ -9,6 +9,12 @@ services:
     ports:
       - "2181:2181"
 
+  redis:
+    image: redis:alpine
+    restart: always
+    ports:
+      - "6379:6379"
+
   kafka:
     image: confluentinc/cp-kafka:7.6.0
     container_name: kafka
