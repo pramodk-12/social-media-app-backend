@@ -18,6 +18,7 @@
         <module>api-gateway</module>
         <module>follow-service</module>
         <module>feed-service</module>
+        <module>notification-service</module>
         <!--        <module>post-service</module>-->
     </modules>
 
